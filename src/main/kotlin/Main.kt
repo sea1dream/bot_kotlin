@@ -41,6 +41,10 @@ suspend fun main() {
     botDir.mkdirs()
 
 
+//    val bot1 = BotFactory.newBot(123456, "password") {
+//        fileBasedDeviceInfo("device1.json")
+//    }
+
     val bot = BotFactory.newBot(qqId, BotAuthorization.byQRCode()) {
         protocol = BotConfiguration.MiraiProtocol.MACOS
     }.alsoLogin()
