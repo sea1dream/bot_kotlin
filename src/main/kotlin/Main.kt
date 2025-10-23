@@ -10,11 +10,8 @@ import net.mamoe.mirai.message.data.Image
 import net.mamoe.mirai.message.data.PlainText
 import net.mamoe.mirai.event.events.GroupMessageEvent
 import net.mamoe.mirai.message.data.Image.Key.queryUrl
-
 import net.mamoe.mirai.message.data.findIsInstance
 import java.io.File
-
-
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
 import net.mamoe.mirai.contact.Contact
@@ -33,11 +30,9 @@ import kotlinx.coroutines.launch
 import net.mamoe.mirai.contact.Contact.Companion.sendImage
 import java.time.LocalDateTime
 import java.time.format.DateTimeFormatter
-
 import okhttp3.OkHttpClient
 import okhttp3.Request
 import java.io.FileOutputStream
-
 import net.mamoe.mirai.utils.ExternalResource.Companion.toExternalResource
 
 suspend fun main() {
@@ -69,6 +64,7 @@ suspend fun main() {
                 val file = download(url)
                 event.subject.sendMessage("图片已保存到：${file.absolutePath}")
             } catch (e: Exception) {
+                // 指向当前对话
                 event.subject.sendMessage("图片保存失败：${e.message}")
             }
 
@@ -80,6 +76,7 @@ suspend fun main() {
                 return@subscribeAlways
             }
             file.toExternalResource().use { res ->
+                // 永远是私聊
                 event.sender.sendImage(res)
             }
         }
